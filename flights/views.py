@@ -1,8 +1,9 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView, CreateAPIView
 from datetime import datetime
-
+from .serializers import RegisterSerializer
 from .models import Flight, Booking
 from .serializers import FlightSerializer, BookingSerializer, BookingDetailsSerializer, UpdateBookingSerializer
+from django.contrib.auth.models import User
 
 
 class FlightsList(ListAPIView):
@@ -41,3 +42,5 @@ class BookFlight(CreateAPIView):
 	def perform_create(self, serializer):
 		serializer.save(user=self.request.user, flight_id=self.kwargs['flight_id'])
 
+class Register(CreateAPIView):
+    serializer_class = RegisterSerializer
